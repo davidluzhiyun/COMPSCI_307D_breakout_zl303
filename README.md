@@ -11,9 +11,9 @@ This project implements the game of Breakout.
 
 Start Date: 9/3/2022 (14:34)
 
-Finish Date: 
+Finish Date: 9/4/2022 (19:49)
 
-Hours Spent:
+Hours Spent: 25
 
 ### Resources Used
 
