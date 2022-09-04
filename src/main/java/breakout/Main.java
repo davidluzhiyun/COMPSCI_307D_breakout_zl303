@@ -147,6 +147,26 @@ public class Main extends Application {
             return true;
         }
     }
+    /**
+     * Handles collisions with platform.
+     * Hitting top/bottom reflect ball normally.
+     * Hitting sides reverse the velocity of the ball.
+     * Behavior inspired by the original game.
+     */
+    public static void platformHandler (ImageView ball, ImageView platform) {
+        int collisionStatus = collisionDetector(ball, platform);
+        switch (collisionStatus) {
+            case 0:
+                return;
+            case 1:
+                BALL_VELOCITY[1] = - BALL_VELOCITY[1];
+                break;
+            case 2:
+                BALL_VELOCITY[0] = - BALL_VELOCITY[0];
+                BALL_VELOCITY[1] = - BALL_VELOCITY[1];
+                break;
+        }
+    }
 
     //Base on code by Robert C. Duvall in ExampleAnimation.java
     // What to do each time a key is pressed
@@ -172,6 +192,7 @@ public class Main extends Application {
             game.stop();
         }
         else {
+            platformHandler(ball,platform);
             ball.setX(ball.getX() + BALL_VELOCITY[0] * elapsedTime);
             ball.setY(ball.getY() + BALL_VELOCITY[1] * elapsedTime);
         }
