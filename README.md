@@ -20,6 +20,9 @@ Hours Spent:
 El Capitan spinning beachball GIF by madebyjw.com
 https://gfycat.com/rapidathleticilladopsis
 
+Red Brick Wall (8-bit) by Trarian on deviantart.com
+https://www.deviantart.com/trarian/art/Red-Brick-Wall-8-bit-905507140
+
 
 ### Running the Program
 

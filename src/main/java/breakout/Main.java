@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 
 /**
  * Feel free to completely change this code or delete it entirely.
- *
- * @author YOUR NAME HERE
+ * Modified from Main.java by Robert C. Duvall
+ * @author David Lu
  */
 public class Main extends Application {
     // useful names for constant values used
@@ -23,7 +23,8 @@ public class Main extends Application {
     // note, Java always uses forward slash, "/", (even for Windows)
     public static final String RESOURCE_PATH = "/breakout/";
     public static final String BALL_IMAGE = RESOURCE_PATH + "ball.gif";
-
+    public static final String WALL_IMAGE = RESOURCE_PATH + "wall.png";
+    public static final int BALL_SIZE = 15;
 
     /**
      * Initialize what will be displayed.
@@ -31,8 +32,8 @@ public class Main extends Application {
     @Override
     public void start (Stage stage) {
         ImageView ball = new ImageView(new Image(BALL_IMAGE));
-        ball.setFitWidth(SIZE);
-        ball.setFitHeight(SIZE);
+        ball.setFitWidth(BALL_SIZE);
+        ball.setFitHeight(BALL_SIZE);
         ball.setX(SIZE / 2 - ball.getBoundsInLocal().getWidth() / 2);
         ball.setY(SIZE / 2 - ball.getBoundsInLocal().getHeight() / 2);
 
