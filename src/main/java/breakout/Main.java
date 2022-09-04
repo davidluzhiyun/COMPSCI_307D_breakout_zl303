@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 /**
  * Feel free to completely change this code or delete it entirely.
  * Modified from Main.java by Robert C. Duvall
+ * Structure based on ExampleAnimation by Robert C. Duvall
  * @author David Lu
  */
 public class Main extends Application {
@@ -25,7 +26,7 @@ public class Main extends Application {
     public static final String BALL_IMAGE = RESOURCE_PATH + "ball.gif";
     public static final String WALL_IMAGE = RESOURCE_PATH + "wall.png";
     public static final int BALL_SIZE = 15;
-
+    public static final int WALL_SIZE = 30;
     /**
      * Initialize what will be displayed.
      */
@@ -37,7 +38,23 @@ public class Main extends Application {
         ball.setX(SIZE / 2 - ball.getBoundsInLocal().getWidth() / 2);
         ball.setY(SIZE / 2 - ball.getBoundsInLocal().getHeight() / 2);
 
-        Group root = new Group(ball);
+        //Testing area
+        Image wall_image = new Image(WALL_IMAGE);
+        ImageView wall1 = new ImageView(wall_image);
+        ImageView wall2 = new ImageView(wall_image);
+        wall1.setFitHeight(WALL_SIZE);
+        wall1.setFitWidth(WALL_SIZE);
+        wall2.setFitWidth(WALL_SIZE);
+        wall2.setFitHeight(WALL_SIZE);
+        wall1.setX(0);
+        wall1.setY(0);
+        wall2.setX(wall1.getBoundsInLocal().getWidth());
+        wall2.setY(0);
+        Group walls = new Group(wall1,wall2);
+        //
+
+        Group root = new Group(ball,walls);
+        //
         Scene scene = new Scene(root, SIZE, SIZE, Color.DARKBLUE);
         stage.setScene(scene);
 
