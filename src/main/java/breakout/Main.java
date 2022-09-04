@@ -1,7 +1,9 @@
 package breakout;
 
 import javafx.application.Application;
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,7 +27,7 @@ public class Main extends Application {
     public static final String RESOURCE_PATH = "/breakout/";
     public static final String BALL_IMAGE = RESOURCE_PATH + "ball.gif";
     public static final String WALL_IMAGE = RESOURCE_PATH + "wall.png";
-    public static final int BALL_SIZE = 15;
+    public static final int BALL_SIZE = 14;
     public static final int WALL_SIZE = 25;
     /**
      * Initialize what will be displayed.
@@ -50,7 +52,7 @@ public class Main extends Application {
     /**
      * Build the Group walls.
      */
-    public static Group wallBuilder(int numX, int numY) {
+    public static Group wallBuilder (int numX, int numY) {
         Image wall_image = new Image(WALL_IMAGE);
         Group walls = new Group();
         for (int i = 0; i < numX; i++) {
@@ -64,6 +66,35 @@ public class Main extends Application {
             }
         }
         return walls;
+    }
+    /**
+    * Collision detector, returns an int.
+     * 0 means no collision between ball and object
+     * 1 means collision on the top/bottom bound
+     * 2 means collision on the left/right bound,
+     * deals
+    * */
+    public static int collisionDetector (ImageView ball, ImageView object) {
+        double ballX = ball.getX() + ball.getBoundsInLocal().getWidth()/2;
+        double ballY = ball.getY() + ball.getBoundsInLocal().getHeight()/2;
+        //Inspired by https://docs.oracle.com/javase/8/javafx/api/javafx/geometry/Bounds.html and
+        // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html
+        //Works because the Group walls and the Group root shares the same coordinate system
+        Bounds objectBound = object.getBoundsInParent();
+        if (! objectBound.contains(ballX,ballY)) {
+            return 0;
+        }
+        else {
+            double objectX = object.getX() + objectBound.getWidth() / 2;
+            double objectY = object.getY() + objectBound.getHeight() / 2;
+            boolean region = Math.abs((ballY - objectY) / (ballX - objectY)) <= Math.abs(objectBound.getHeight() / objectBound.getWidth());
+            if (region) {
+                return 2;
+            }
+            else {
+                return 1;
+            }
+        }
     }
 
     /**

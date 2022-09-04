@@ -38,8 +38,17 @@ Cheat keys:
 ### Notes/Assumptions
 
 Assumptions or Simplifications:
+1. Sees the ball as a single point.
+   1. Which implies we are ignoring the case where the ball hits the corner
+   of a brick.
+   2. Ignore the case where multiple bricks are hit at the same time
+2. Frame rate is high enough so that the ball doesn't go much into or through bricks
+between frames
+
 
 Known Bugs:
+1. If the ball hit close to the corner of bricks at a high enough speed, the 
+collision might not be correctly processed
 
 Extra features or interesting things we should not miss:
 
