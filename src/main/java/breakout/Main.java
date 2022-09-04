@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -36,6 +37,7 @@ public class Main extends Application {
     public static final int WALL_SIZE = 25;
     public static final int PLATFORM_HEIGHT = 14;
     public static int[] BALL_VELOCITY = {20,20};
+    public  static int PLATFORM_SPEED = 8;
 
     //Code from ExampleAnimation.java by Robert C. Duvall
     public static final int FRAMES_PER_SECOND = 60;
@@ -62,7 +64,8 @@ public class Main extends Application {
 
         Group root = new Group(ball,walls,platform);
         Scene scene = new Scene(root, SIZE, SIZE, Color.DARKBLUE);
-        //
+        //From ExampleAnimation.java by Robert C. Duvall
+        scene.setOnKeyPressed(e -> handleKeyInput(e.getCode(),platform));
         //
         stage.setScene(scene);
 
@@ -72,7 +75,7 @@ public class Main extends Application {
         //Code for animation inspired by ExampleAnimation.java by Robert C. Duvall
         Timeline game = new Timeline();
         game.setCycleCount(Timeline.INDEFINITE);
-        game.getKeyFrames().add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY,ball,game)));
+        game.getKeyFrames().add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY,ball,platform,walls,game)));
         game.play();
     }
     /**
@@ -145,13 +148,26 @@ public class Main extends Application {
         }
     }
 
+    //Base on code by Robert C. Duvall in ExampleAnimation.java
+    // What to do each time a key is pressed
+    private void handleKeyInput (KeyCode code, ImageView platform) {
+        // NOTE new Java syntax that some prefer (but watch out for the many special cases!)
+        //   https://blog.jetbrains.com/idea/2019/02/java-12-and-intellij-idea/
+        switch (code) {
+            case RIGHT -> platform.setX(platform.getX() + PLATFORM_SPEED);
+            case LEFT -> platform.setX(platform.getX() - PLATFORM_SPEED);
+        }
+    }
+    /**
+     * Handles frames and game rules
+     */
     // Based on ExampleAnimation.java by Robert C. Duvall
     // Handle game "rules" for every "moment":
     // - movement: how do shapes move over time?
     // - collisions: did shapes intersect and, if so, what should happen?
     // - goals: did the game or level end?
     // Note, there are more sop
-    private void step (double elapsedTime, ImageView ball, Timeline game){
+    private void step (double elapsedTime, ImageView ball, ImageView platform, Group walls, Timeline game){
         if (! edgeHandler(ball)){
             game.stop();
         }
