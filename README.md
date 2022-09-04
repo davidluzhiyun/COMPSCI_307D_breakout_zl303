@@ -23,6 +23,8 @@ https://gfycat.com/rapidathleticilladopsis
 Red Brick Wall (8-bit) by Trarian on deviantart.com
 https://www.deviantart.com/trarian/art/Red-Brick-Wall-8-bit-905507140
 
+Platform Main by 9664c4 on pixelartmaker.com
+http://pixelartmaker.com/art/72bd303189fe5db
 
 ### Running the Program
 
@@ -48,7 +50,7 @@ between frames
 
 Known Bugs:
 1. If the ball hit close to the corner of bricks at a high enough speed, the 
-collision might not be correctly processed
+collision might not be correctly processed.
 
 Extra features or interesting things we should not miss:
 
