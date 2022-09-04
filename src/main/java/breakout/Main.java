@@ -26,7 +26,7 @@ public class Main extends Application {
     public static final String BALL_IMAGE = RESOURCE_PATH + "ball.gif";
     public static final String WALL_IMAGE = RESOURCE_PATH + "wall.png";
     public static final int BALL_SIZE = 15;
-    public static final int WALL_SIZE = 30;
+    public static final int WALL_SIZE = 25;
     /**
      * Initialize what will be displayed.
      */
@@ -38,30 +38,33 @@ public class Main extends Application {
         ball.setX(SIZE / 2 - ball.getBoundsInLocal().getWidth() / 2);
         ball.setY(SIZE / 2 - ball.getBoundsInLocal().getHeight() / 2);
 
-        //Testing area
-        Image wall_image = new Image(WALL_IMAGE);
-        ImageView wall1 = new ImageView(wall_image);
-        ImageView wall2 = new ImageView(wall_image);
-        wall1.setFitHeight(WALL_SIZE);
-        wall1.setFitWidth(WALL_SIZE);
-        wall2.setFitWidth(WALL_SIZE);
-        wall2.setFitHeight(WALL_SIZE);
-        wall1.setX(0);
-        wall1.setY(0);
-        wall2.setX(wall1.getBoundsInLocal().getWidth());
-        wall2.setY(0);
-        Group walls = new Group(wall1,wall2);
-        //
+        Group walls = wallBuilder(16,3);
 
         Group root = new Group(ball,walls);
-        //
         Scene scene = new Scene(root, SIZE, SIZE, Color.DARKBLUE);
         stage.setScene(scene);
 
         stage.setTitle(TITLE);
         stage.show();
     }
-
+    /**
+     * Build the Group walls.
+     */
+    public static Group wallBuilder(int numX, int numY) {
+        Image wall_image = new Image(WALL_IMAGE);
+        Group walls = new Group();
+        for (int i = 0; i < numX; i++) {
+            for (int j = 0; j < numY; j++) {
+                ImageView wall = new ImageView(wall_image);
+                wall.setFitWidth(WALL_SIZE);
+                wall.setFitHeight(WALL_SIZE);
+                wall.setX(i * WALL_SIZE);
+                wall.setY(j * WALL_SIZE);
+                walls.getChildren().add(wall);
+            }
+        }
+        return walls;
+    }
 
     /**
      * Start the program.
