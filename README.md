@@ -29,10 +29,13 @@ http://pixelartmaker.com/art/72bd303189fe5db
 ### Running the Program
 
 Main class:
+Main.java
 
 Data files needed: 
 
 Key/Mouse inputs:
+* LEFT to move platform left
+* RIGHT to move platform RIGHT
 
 Cheat keys:
 
@@ -51,6 +54,10 @@ between frames
 Known Bugs:
 1. If the ball hit close to the corner of bricks at a high enough speed, the 
 collision might not be correctly processed.
+2. Due to 1, the ball sometimes just cut through 2 brick walls without changing
+course
+3. Due to 1, the ball almost always reverse its direction when the velocity
+is high.
 
 Extra features or interesting things we should not miss:
 

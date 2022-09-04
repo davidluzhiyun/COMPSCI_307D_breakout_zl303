@@ -36,11 +36,11 @@ public class Main extends Application {
     public static final int BALL_SIZE = 14;
     public static final int WALL_SIZE = 25;
     public static final int PLATFORM_HEIGHT = 14;
-    public static int[] BALL_VELOCITY = {20,20};
+    public static double[] BALL_VELOCITY = {20,20};
     public  static int PLATFORM_SPEED = 8;
 
     //Code from ExampleAnimation.java by Robert C. Duvall
-    public static final int FRAMES_PER_SECOND = 60;
+    public static final int FRAMES_PER_SECOND = 120;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     /**
      * Initialize what will be displayed.
@@ -155,6 +155,12 @@ public class Main extends Application {
      */
     public static void platformHandler (ImageView ball, ImageView platform) {
         int collisionStatus = collisionDetector(ball, platform);
+        if (platform.getX() < 0) {
+            platform.setX(SIZE);
+        }
+        if (platform.getX() > SIZE) {
+            platform.setX(0);
+        }
         switch (collisionStatus) {
             case 0:
                 return;
@@ -165,6 +171,31 @@ public class Main extends Application {
                 BALL_VELOCITY[0] = - BALL_VELOCITY[0];
                 BALL_VELOCITY[1] = - BALL_VELOCITY[1];
                 break;
+        }
+    }
+    /**
+     * Handles collisions with the walls
+     * Hitting brick wall destroys it and reflects ball, increase ball speed.
+     * Behavior inspired by the original game.
+     */
+    public static void wallHandler (ImageView ball, Group walls) {
+        for(Node wall : walls.getChildren()) {
+            int collisionStatus = collisionDetector(ball, (ImageView) wall);
+            if (collisionStatus == 0) {
+                continue;
+            }
+            else {
+                if (collisionStatus == 1) {
+                    BALL_VELOCITY[1] = - BALL_VELOCITY[1];
+                }
+                else  {
+                    BALL_VELOCITY[0] = - BALL_VELOCITY[0];
+                }
+                walls.getChildren().remove(wall);
+                BALL_VELOCITY[0] = 1.1 * BALL_VELOCITY[0];
+                BALL_VELOCITY[1] = 1.1 * BALL_VELOCITY[1];
+                return;
+            }
         }
     }
 
@@ -193,6 +224,7 @@ public class Main extends Application {
         }
         else {
             platformHandler(ball,platform);
+            wallHandler(ball,walls);
             ball.setX(ball.getX() + BALL_VELOCITY[0] * elapsedTime);
             ball.setY(ball.getY() + BALL_VELOCITY[1] * elapsedTime);
         }
