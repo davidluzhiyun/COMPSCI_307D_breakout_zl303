@@ -35,7 +35,8 @@ Data files needed:
 
 Key/Mouse inputs:
 * LEFT to move platform left
-* RIGHT to move platform RIGHT
+* RIGHT to move platform right
+* SPACE to restart game after death
 
 Cheat keys:
 
@@ -65,5 +66,5 @@ Extra features or interesting things we should not miss:
 ### Impressions
 The collision detection method requires improvement. The structure for the code
 needs cleaning. (First Draft,David Lu)
-Still not fun enough for a game (Second Draft,David Lu)
+Still not fun enough for a game (Second Draft, David Lu)
 
