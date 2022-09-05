@@ -36,7 +36,7 @@ public class Main extends Application {
     public static final int BALL_SIZE = 14;
     public static final int WALL_SIZE = 25;
     public static final int PLATFORM_HEIGHT = 14;
-    public static double[] BALL_VELOCITY = {20,20};
+    public static double[] BALL_VELOCITY = {40,40};
     public  static int PLATFORM_SPEED = 8;
 
     //Code from ExampleAnimation.java by Robert C. Duvall
@@ -117,7 +117,7 @@ public class Main extends Application {
         else {
             double objectX = object.getX() + objectBound.getWidth() / 2;
             double objectY = object.getY() + objectBound.getHeight() / 2;
-            boolean region = Math.abs((ballY - objectY) / (ballX - objectY)) <= Math.abs(objectBound.getHeight() / objectBound.getWidth());
+            boolean region = Math.abs((ballY - objectY) / (ballX - objectX)) <= Math.abs(objectBound.getHeight() / objectBound.getWidth());
             if (region) {
                 return 2;
             }

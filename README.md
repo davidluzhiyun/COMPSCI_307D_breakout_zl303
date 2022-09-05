@@ -56,12 +56,12 @@ Known Bugs:
 collision might not be correctly processed.
 2. Due to 1, the ball sometimes just cut through 2 brick walls without changing
 course
-3. Due to 1, the ball almost always reverse its direction when the velocity
-is high.
+
 
 Extra features or interesting things we should not miss:
 
 
 ### Impressions
-
+The collision detection method requires improvement. The structure for the code
+needs cleaning. (First Draft,David Lu)
 
