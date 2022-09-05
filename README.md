@@ -11,9 +11,9 @@ This project implements the game of Breakout.
 
 Start Date: 9/3/2022 (14:34)
 
-Finish Date: 9/4/2022 (19:49)
+Finish Date: 9/5/2022 (1:55)
 
-Hours Spent: 25
+Hours Spent: 35.5
 
 ### Resources Used
 
@@ -29,7 +29,7 @@ http://pixelartmaker.com/art/72bd303189fe5db
 ### Running the Program
 
 Main class:
-Main.java
+Game.java
 
 Data files needed: 
 
@@ -65,4 +65,5 @@ Extra features or interesting things we should not miss:
 ### Impressions
 The collision detection method requires improvement. The structure for the code
 needs cleaning. (First Draft,David Lu)
+Still not fun enough for a game (Second Draft,David Lu)
 
