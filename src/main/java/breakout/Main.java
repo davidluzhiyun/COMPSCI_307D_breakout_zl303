@@ -37,6 +37,7 @@ public class Main extends Application {
     public static final int WALL_SIZE = 25;
     public static final int PLATFORM_HEIGHT = 14;
     public static double[] BALL_VELOCITY = {40,40};
+    public static final double[]  BALL_VELOCITY_INITIAL = {40,40};
     public  static int PLATFORM_SPEED = 8;
 
     //Code from ExampleAnimation.java by Robert C. Duvall
@@ -75,7 +76,7 @@ public class Main extends Application {
         //Code for animation inspired by ExampleAnimation.java by Robert C. Duvall
         Timeline game = new Timeline();
         game.setCycleCount(Timeline.INDEFINITE);
-        game.getKeyFrames().add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY,ball,platform,walls,game)));
+        game.getKeyFrames().add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY,ball,platform,walls,game,stage)));
         game.play();
     }
     /**
@@ -219,9 +220,13 @@ public class Main extends Application {
     // - collisions: did shapes intersect and, if so, what should happen?
     // - goals: did the game or level end?
     // Note, there are more sop
-    private void step (double elapsedTime, ImageView ball, ImageView platform, Group walls, Timeline game){
+    private void step (double elapsedTime, ImageView ball, ImageView platform, Group walls, Timeline game,Stage stage){
         if (! edgeHandler(ball)){
             game.stop();
+            stage.close();
+            BALL_VELOCITY[0] = BALL_VELOCITY_INITIAL[0];
+            BALL_VELOCITY[1] = BALL_VELOCITY_INITIAL[1];
+            start(new Stage());
         }
         else {
             platformHandler(ball,platform);
