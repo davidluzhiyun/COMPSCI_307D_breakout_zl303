@@ -101,7 +101,8 @@ public class Main extends Application {
      * 0 means no collision between ball and object
      * 1 means collision on the top/bottom bound
      * 2 means collision on the left/right bound,
-     * deals
+     * Determines the side it hits by comparing the position angle of the ball relative to the center
+     * of the platform/brick to that of the vertices of the platform/brick
     * */
     public static int collisionDetector (ImageView ball, ImageView object) {
         double ballX = ball.getX() + ball.getBoundsInLocal().getWidth()/2;

@@ -60,6 +60,7 @@ course
 
 Extra features or interesting things we should not miss:
 
+1.Platform goes to the other side of the screen when travels too far 
 
 ### Impressions
 The collision detection method requires improvement. The structure for the code
