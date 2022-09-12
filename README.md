@@ -1,8 +1,8 @@
 # breakout
 ## NAME
+David Lu
 
-
-DO NO FORK THIS REPOSITORY, clone it directly to your computer.
+DO NOT FORK THIS REPOSITORY, clone it directly to your computer.
 
 
 This project implements the game of Breakout.
@@ -10,6 +10,14 @@ This project implements the game of Breakout.
 ### Timeline
 
 Start Date: 9/3/2022 (14:34)
+
+Finish Date: 9/5/2022 (1:55)
+
+Hours Spent: 35.5
+
+
+
+Start Date: 9/10/2022 (12:00)
 
 Finish Date: 9/5/2022 (1:55)
 

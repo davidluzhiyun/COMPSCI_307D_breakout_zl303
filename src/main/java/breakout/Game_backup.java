@@ -22,7 +22,7 @@ import javafx.scene.text.*;
  * Structure based on ExampleAnimation by Robert C. Duvall
  * @author David Lu
  */
-public class Game extends Application {
+public class Game_backup extends Application {
 
   // useful names for constant values used
   // modified from Main.java by Robert C. Duvall
@@ -35,16 +35,17 @@ public class Game extends Application {
   public final String BALL_IMAGE = RESOURCE_PATH + "ball.gif";
   public final String WALL_IMAGE = RESOURCE_PATH + "wall.png";
   public final String PLATFORM_IMAGE = RESOURCE_PATH + "platform.png";
-
+  public final int BALL_SIZE = 14;
   public final int WALL_SIZE = 25;
   public final int PLATFORM_HEIGHT = 14;
-
+  public double[] BALL_VELOCITY = {40, 40};
+  public final double[] BALL_VELOCITY_INITIAL = {40, 40};
   public int PLATFORM_SPEED = 8;
   //Inspired ExampleAnimation.java by Robert C. Duvall
   public final int FRAMES_PER_SECOND = 120;
   public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   // things needed to remember during the game
-
+  private ImageView ball;
   private Group walls;
   private ImageView platform;
   private Scene myScene;
