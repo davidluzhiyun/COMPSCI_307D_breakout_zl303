@@ -31,7 +31,7 @@ public class Ball extends BreakoutObject{
    */
   public Ball (double centerX, double centerY) {
     super(centerX,centerY,BALL_IMAGE,BALL_SIZE);
-    myBallVelocity = BALL_VELOCITY_INITIAL;
+    myBallVelocity = BALL_VELOCITY_INITIAL.clone();
   }
 
 
@@ -67,6 +67,13 @@ public class Ball extends BreakoutObject{
   }
 
   /**
+   * Get the ball's velocity array
+   */
+  public double[] getMyBallVelocity() {
+    return myBallVelocity;
+  }
+
+  /**
    * Move the ball
    */
   public void step(double elapsedTime) {
@@ -74,4 +81,5 @@ public class Ball extends BreakoutObject{
     ImageViewBall.setX(ImageViewBall.getX() + myBallVelocity[0] * elapsedTime);
     ImageViewBall.setY(ImageViewBall.getY() + myBallVelocity[1] * elapsedTime);
   }
+
 }
