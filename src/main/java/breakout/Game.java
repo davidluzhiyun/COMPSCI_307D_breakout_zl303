@@ -34,10 +34,10 @@ public class Game extends Application {
   public final String RESOURCE_PATH = "/breakout/";
   public final String BALL_IMAGE = RESOURCE_PATH + "ball.gif";
   public final String WALL_IMAGE = RESOURCE_PATH + "wall.png";
-  public final String PLATFORM_IMAGE = RESOURCE_PATH + "platform.png";
+  public final String PADDLE_IMAGE = RESOURCE_PATH + "paddle.png";
 
   public final int WALL_SIZE = 25;
-  public final int PLATFORM_HEIGHT = 14;
+  public final int PADDLE_HEIGHT = 14;
 
   public int PLATFORM_SPEED = 8;
   //Inspired ExampleAnimation.java by Robert C. Duvall
@@ -46,7 +46,7 @@ public class Game extends Application {
   // things needed to remember during the game
   private Ball myBall;
   private Group walls;
-  private ImageView platform;
+  private ImageView paddle;
   private Scene myScene;
   private Timeline game;
   private Stage myStage;
@@ -78,16 +78,16 @@ public class Game extends Application {
     myBall = new Ball(SIZE/2,SIZE/2);
 
 
-    platform = new ImageView(new Image(PLATFORM_IMAGE));
+    paddle = new ImageView(new Image(PADDLE_IMAGE));
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/ImageView.html#setPreserveRatio-boolean-
-    platform.setPreserveRatio(true);
-    platform.setFitHeight(PLATFORM_HEIGHT);
-    platform.setX(SIZE / 2 - platform.getBoundsInLocal().getWidth() / 2);
-    platform.setY(350);
+    paddle.setPreserveRatio(true);
+    paddle.setFitHeight(PADDLE_HEIGHT);
+    paddle.setX(SIZE / 2 - paddle.getBoundsInLocal().getWidth() / 2);
+    paddle.setY(350);
 
     wallBuilder(16, 3);
 
-    Group root = new Group(ball, walls, platform);
+    Group root = new Group(myBall.getMyNode(), walls, paddle);
     Scene scene = new Scene(root, SIZE, SIZE, Color.DARKBLUE);
     //From ExampleAnimation.java by Robert C. Duvall
     scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
@@ -141,12 +141,12 @@ public class Game extends Application {
    * Behavior inspired by the original game.
    */
   public void platformHandler () {
-    int collisionStatus = myBall.collisionDetector(platform);
-    if (platform.getX() < 0) {
-      platform.setX(SIZE);
+    int collisionStatus = myBall.collisionDetector(paddle);
+    if (paddle.getX() < 0) {
+      paddle.setX(SIZE);
     }
-    if (platform.getX() > SIZE) {
-      platform.setX(0);
+    if (paddle.getX() > SIZE) {
+      paddle.setX(0);
     }
     switch (collisionStatus) {
       case 0:
@@ -193,8 +193,8 @@ public class Game extends Application {
     // NOTE new Java syntax that some prefer (but watch out for the many special cases!)
     //   https://blog.jetbrains.com/idea/2019/02/java-12-and-intellij-idea/
     switch (code) {
-      case RIGHT -> platform.setX(platform.getX() + PLATFORM_SPEED);
-      case LEFT -> platform.setX(platform.getX() - PLATFORM_SPEED);
+      case RIGHT -> paddle.setX(paddle.getX() + PLATFORM_SPEED);
+      case LEFT -> paddle.setX(paddle.getX() - PLATFORM_SPEED);
     }
   }
 
@@ -245,10 +245,10 @@ public class Game extends Application {
     else {
       platformHandler();
       wallHandler();
-      ball.setX(ball.getX() + BALL_VELOCITY[0] * SECOND_DELAY);
-      ball.setY(ball.getY() + BALL_VELOCITY[1] * SECOND_DELAY);
+      myBall.step(SECOND_DELAY);
     }
   }
+
 
   /**
    * Start the program.

@@ -17,15 +17,16 @@ import javafx.util.Duration;
 import javafx.scene.text.*;
 
 public class Ball {
-  //class variables
-  private Node myNode;
-  private double[] myBallVelocity;
-
   //useful constants
   public static final int BALL_SIZE = 14;
   public static final double[] BALL_VELOCITY_INITIAL = {30, 30};
   public static final String RESOURCE_PATH = "/breakout/";
   public static final String BALL_IMAGE = RESOURCE_PATH + "ball.gif";
+
+  //class variables
+  private Node myNode;
+  private double[] myBallVelocity;
+
 
   /**
    * Construct Default Ball with center at given coordinate
@@ -40,19 +41,13 @@ public class Ball {
     myBallVelocity = BALL_VELOCITY_INITIAL;
   }
 
+
+
   /**
    * Get the coordinate of the center of the ball
    */
-  public double getCenterX (){
-    ImageView ImageViewBall = (ImageView) myNode;
-    double centerX = ImageViewBall.getX() + ImageViewBall.getBoundsInLocal().getWidth()/2;
-    return centerX;
-  }
-
-  public double getCenterY (){
-    ImageView ImageViewBall = (ImageView) myNode;
-    double centerY = ImageViewBall.getY() + ImageViewBall.getBoundsInLocal().getHeight()/2;
-    return centerY;
+  public Node getMyNode() {
+    return myNode;
   }
 
   /**
@@ -84,5 +79,14 @@ public class Ball {
         return 1;
       }
     }
+  }
+
+  /**
+   * Move the ball
+   */
+  public void step(double elapsedTime) {
+    ImageView ImageViewBall = (ImageView) myNode;
+    ImageViewBall.setX(ImageViewBall.getX() + myBallVelocity[0] * elapsedTime);
+    ImageViewBall.setY(ImageViewBall.getY() + myBallVelocity[1] * elapsedTime);
   }
 }
