@@ -44,7 +44,7 @@ public class Game extends Application {
   public final int FRAMES_PER_SECOND = 120;
   public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   // things needed to remember during the game
-
+  private Ball myBall;
   private Group walls;
   private ImageView platform;
   private Scene myScene;
@@ -74,11 +74,9 @@ public class Game extends Application {
   //Inspired by Robert C. Duvall's ExampleAnimation.java and Main.java (breakout)
   // Create the game's "scene": what shapes will be in the game and their starting properties
   public Scene setupGame() {
-    ball = new ImageView(new Image(BALL_IMAGE));
-    ball.setFitWidth(BALL_SIZE);
-    ball.setFitHeight(BALL_SIZE);
-    ball.setX(SIZE / 2 - ball.getBoundsInLocal().getWidth() / 2);
-    ball.setY(SIZE / 2 - ball.getBoundsInLocal().getHeight() / 2);
+    //Set up myBall
+    myBall = new Ball(SIZE/2,SIZE/2);
+
 
     platform = new ImageView(new Image(PLATFORM_IMAGE));
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/ImageView.html#setPreserveRatio-boolean-
@@ -115,38 +113,6 @@ public class Game extends Application {
   }
 
   /**
-   * Collision detector, returns an int.
-   * 0 means no collision between ball and object
-   * 1 means collision on the top/bottom bound
-   * 2 means collision on the left/right bound,
-   * Determines the side it hits by comparing the position angle of the ball relative to the center
-   * of the platform/brick to that of the vertices of the platform/brick
-   * */
-  public int collisionDetector (ImageView object) {
-    double ballX = ball.getX() + ball.getBoundsInLocal().getWidth()/2;
-    double ballY = ball.getY() + ball.getBoundsInLocal().getHeight()/2;
-    //https://docs.oracle.com/javase/8/javafx/api/javafx/geometry/Bounds.html
-    // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html
-    //Works on both the walls and the platform because the Group walls and the Group root shares
-    // the same coordinate system
-    Bounds objectBound = object.getBoundsInParent();
-    if (! objectBound.contains(ballX,ballY)) {
-      return 0;
-    }
-    else {
-      double objectX = object.getX() + objectBound.getWidth() / 2;
-      double objectY = object.getY() + objectBound.getHeight() / 2;
-      boolean region = Math.abs((ballY - objectY) / (ballX - objectX)) <= Math.abs(objectBound.getHeight() / objectBound.getWidth());
-      if (region) {
-        return 2;
-      }
-      else {
-        return 1;
-      }
-    }
-  }
-
-  /**
    * Handles collisions with the edge of the playable area.
    * Ball gets reflected unless hitting the lower edge, which ends the game
    *
@@ -175,7 +141,7 @@ public class Game extends Application {
    * Behavior inspired by the original game.
    */
   public void platformHandler () {
-    int collisionStatus = collisionDetector(platform);
+    int collisionStatus = myBall.collisionDetector(platform);
     if (platform.getX() < 0) {
       platform.setX(SIZE);
     }
@@ -202,7 +168,7 @@ public class Game extends Application {
    */
   public void wallHandler () {
     for(Node wall : walls.getChildren()) {
-      int collisionStatus = collisionDetector((ImageView) wall);
+      int collisionStatus = myBall.collisionDetector((ImageView) wall);
       if (collisionStatus == 0) {
         continue;
       }
