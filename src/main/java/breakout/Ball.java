@@ -16,15 +16,13 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.text.*;
 
-public class Ball {
+public class Ball extends BreakoutObject{
   //useful constants
   public static final int BALL_SIZE = 14;
   public static final double[] BALL_VELOCITY_INITIAL = {30, 30};
-  public static final String RESOURCE_PATH = "/breakout/";
   public static final String BALL_IMAGE = RESOURCE_PATH + "ball.gif";
 
   //class variables
-  private Node myNode;
   private double[] myBallVelocity;
 
 
@@ -32,23 +30,10 @@ public class Ball {
    * Construct Default Ball with center at given coordinate
    */
   public Ball (double centerX, double centerY) {
-    ImageView ImageViewBall = new ImageView(new Image(Ball.class.getResourceAsStream(BALL_IMAGE)));
-    ImageViewBall.setFitWidth(BALL_SIZE);
-    ImageViewBall.setFitHeight(BALL_SIZE);
-    ImageViewBall.setX(centerX - ImageViewBall.getBoundsInLocal().getWidth() / 2);
-    ImageViewBall.setY(centerY - ImageViewBall.getBoundsInLocal().getHeight() / 2);
-    myNode = ImageViewBall;
+    super(centerX,centerY,BALL_IMAGE,BALL_SIZE);
     myBallVelocity = BALL_VELOCITY_INITIAL;
   }
 
-
-
-  /**
-   * Get the coordinate of the center of the ball
-   */
-  public Node getMyNode() {
-    return myNode;
-  }
 
   /**
    * Collision detector, returns an int. 0 means no collision between ball and object 1 means
@@ -56,22 +41,22 @@ public class Ball {
    * it hits by comparing the position angle of the ball relative to the center of the platform/brick
    * to that of the vertices of the platform/brick
    */
-  public int collisionDetector(Node object) {
-    double ballX = getCenterX();
-    double ballY = getCenterY();
+  public int collisionDetector(BreakoutObject object) {
+    double ballCenterX = getCenterX();
+    double ballCenterY = getCenterY();
     //https://docs.oracle.com/javase/8/javafx/api/javafx/geometry/Bounds.html
     // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html
     //Works on both the walls and the platform because the Group walls and the Group root shares
     // the same coordinate system
-    ImageView ImageViewObject = (ImageView)object;
-    Bounds objectBound = ImageViewObject.getBoundsInParent();
-    if (! objectBound.contains(ballX,ballY)) {
+    ImageView ImageViewObject = (ImageView) object.getMyNode();
+    Bounds objectBound = object.getObjectBound();
+    if (! objectBound.contains(ballCenterX,ballCenterY)) {
       return 0;
     }
     else {
-      double objectX = ImageViewObject.getX() + objectBound.getWidth() / 2;
-      double objectY = ImageViewObject.getY() + objectBound.getHeight() / 2;
-      boolean region = Math.abs((ballY - objectY) / (ballX - objectX)) <= Math.abs(objectBound.getHeight() / objectBound.getWidth());
+      double objectCenterX = object.getCenterX();
+      double objectCenterY = object.getCenterY();
+      boolean region = Math.abs((ballCenterY - objectCenterY) / (ballCenterX - objectCenterX)) <= Math.abs(objectBound.getHeight() / objectBound.getWidth());
       if (region) {
         return 2;
       }
@@ -85,7 +70,7 @@ public class Ball {
    * Move the ball
    */
   public void step(double elapsedTime) {
-    ImageView ImageViewBall = (ImageView) myNode;
+    ImageView ImageViewBall = (ImageView) getMyNode();
     ImageViewBall.setX(ImageViewBall.getX() + myBallVelocity[0] * elapsedTime);
     ImageViewBall.setY(ImageViewBall.getY() + myBallVelocity[1] * elapsedTime);
   }

@@ -49,6 +49,12 @@ public class BreakoutObject {
     double centerY = ImageViewObject.getY() + ImageViewObject.getBoundsInLocal().getHeight()/2;
     return centerY;
   }
+  /**
+   * Get the Node of the object
+   */
+  public Node getMyNode() {
+    return myNode;
+  }
 
   /**
    * Get the bounds of the object

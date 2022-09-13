@@ -46,7 +46,7 @@ public class Game extends Application {
   // things needed to remember during the game
   private Ball myBall;
   private Group walls;
-  private ImageView paddle;
+  private ImageView myPaddle;
   private Scene myScene;
   private Timeline game;
   private Stage myStage;
@@ -78,16 +78,16 @@ public class Game extends Application {
     myBall = new Ball(SIZE/2,SIZE/2);
 
 
-    paddle = new ImageView(new Image(PADDLE_IMAGE));
+    myPaddle = new ImageView(new Image(PADDLE_IMAGE));
     //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/ImageView.html#setPreserveRatio-boolean-
-    paddle.setPreserveRatio(true);
-    paddle.setFitHeight(PADDLE_HEIGHT);
-    paddle.setX(SIZE / 2 - paddle.getBoundsInLocal().getWidth() / 2);
-    paddle.setY(350);
+    myPaddle.setPreserveRatio(true);
+    myPaddle.setFitHeight(PADDLE_HEIGHT);
+    myPaddle.setX(SIZE / 2 - myPaddle.getBoundsInLocal().getWidth() / 2);
+    myPaddle.setY(350);
 
     wallBuilder(16, 3);
 
-    Group root = new Group(myBall.getMyNode(), walls, paddle);
+    Group root = new Group(myBall.getMyNode(), walls, myPaddle);
     Scene scene = new Scene(root, SIZE, SIZE, Color.DARKBLUE);
     //From ExampleAnimation.java by Robert C. Duvall
     scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
@@ -140,13 +140,13 @@ public class Game extends Application {
    * Hitting sides reverse the velocity of the ball.
    * Behavior inspired by the original game.
    */
-  public void platformHandler () {
-    int collisionStatus = myBall.collisionDetector(paddle);
-    if (paddle.getX() < 0) {
-      paddle.setX(SIZE);
+  public void paddleHandler() {
+    int collisionStatus = myBall.collisionDetector(myPaddle);
+    if (myPaddle.getX() < 0) {
+      myPaddle.setX(SIZE);
     }
-    if (paddle.getX() > SIZE) {
-      paddle.setX(0);
+    if (myPaddle.getX() > SIZE) {
+      myPaddle.setX(0);
     }
     switch (collisionStatus) {
       case 0:
@@ -193,8 +193,8 @@ public class Game extends Application {
     // NOTE new Java syntax that some prefer (but watch out for the many special cases!)
     //   https://blog.jetbrains.com/idea/2019/02/java-12-and-intellij-idea/
     switch (code) {
-      case RIGHT -> paddle.setX(paddle.getX() + PLATFORM_SPEED);
-      case LEFT -> paddle.setX(paddle.getX() - PLATFORM_SPEED);
+      case RIGHT -> myPaddle.setX(myPaddle.getX() + PLATFORM_SPEED);
+      case LEFT -> myPaddle.setX(myPaddle.getX() - PLATFORM_SPEED);
     }
   }
 
@@ -243,7 +243,7 @@ public class Game extends Application {
       gameoverHandler();
     }
     else {
-      platformHandler();
+      paddleHandler();
       wallHandler();
       myBall.step(SECOND_DELAY);
     }
