@@ -24,6 +24,7 @@ import javafx.scene.text.*;
  */
 public class Game extends Application {
 
+
   // useful names for constant values used
   // modified from Main.java by Robert C. Duvall
   public final String TITLE = "Example JavaFX Animation";
@@ -38,15 +39,16 @@ public class Game extends Application {
 
   public final int WALL_SIZE = 25;
   public final int PADDLE_HEIGHT = 14;
+  public static final int PADDLE_CENTER_Y = 350;
 
-  public int PLATFORM_SPEED = 8;
+  public int PADDLE_SPEED = 8;
   //Inspired ExampleAnimation.java by Robert C. Duvall
   public final int FRAMES_PER_SECOND = 120;
   public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   // things needed to remember during the game
   private Ball myBall;
   private Group walls;
-  private ImageView myPaddle;
+  private Paddle myPaddle;
   private Scene myScene;
   private Timeline game;
   private Stage myStage;
@@ -78,19 +80,15 @@ public class Game extends Application {
     myBall = new Ball(SIZE/2,SIZE/2);
 
 
-    myPaddle = new ImageView(new Image(PADDLE_IMAGE));
-    //https://docs.oracle.com/javase/8/javafx/api/javafx/scene/image/ImageView.html#setPreserveRatio-boolean-
-    myPaddle.setPreserveRatio(true);
-    myPaddle.setFitHeight(PADDLE_HEIGHT);
-    myPaddle.setX(SIZE / 2 - myPaddle.getBoundsInLocal().getWidth() / 2);
-    myPaddle.setY(350);
+    //Set up myPaddle
+    myPaddle = new Paddle(SIZE/2,Paddle.PADDLE_CENTER_Y)
 
     wallBuilder(16, 3);
 
-    Group root = new Group(myBall.getMyNode(), walls, myPaddle);
+    Group root = new Group(myBall.getMyNode(), walls, myPaddle.getMyNode());
     Scene scene = new Scene(root, SIZE, SIZE, Color.DARKBLUE);
     //From ExampleAnimation.java by Robert C. Duvall
-    scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+    scene.setOnKeyPressed(e -> myPaddle.handleKeyInput(e.getCode()));
     return scene;
   }
 
@@ -187,17 +185,6 @@ public class Game extends Application {
     }
   }
 
-  //Base on code by Robert C. Duvall in ExampleAnimation.java
-  // What to do each time a key is pressed
-  private void handleKeyInput (KeyCode code) {
-    // NOTE new Java syntax that some prefer (but watch out for the many special cases!)
-    //   https://blog.jetbrains.com/idea/2019/02/java-12-and-intellij-idea/
-    switch (code) {
-      case RIGHT -> myPaddle.setX(myPaddle.getX() + PLATFORM_SPEED);
-      case LEFT -> myPaddle.setX(myPaddle.getX() - PLATFORM_SPEED);
-    }
-  }
-
   // What to do when restart
   private void handleRestart (KeyCode code) {
     // NOTE new Java syntax that some prefer (but watch out for the many special cases!)
@@ -243,7 +230,7 @@ public class Game extends Application {
       gameoverHandler();
     }
     else {
-      paddleHandler();
+      myPaddle.collisionHandler(myBall);
       wallHandler();
       myBall.step(SECOND_DELAY);
     }

@@ -27,11 +27,15 @@ public class Ball extends BreakoutObject{
 
 
   /**
-   * Construct Default Ball with center at given coordinate
+   * Construct Ball with center at given coordinate
    */
-  public Ball (double centerX, double centerY) {
+  public Ball (double centerX, double centerY, double[] initialVelocity) {
     super(centerX,centerY,BALL_IMAGE,BALL_SIZE);
-    myBallVelocity = BALL_VELOCITY_INITIAL.clone();
+    assert initialVelocity.length == 2;
+    myBallVelocity = initialVelocity.clone();
+  }
+  public Ball (double centerX, double centerY) {
+    this(centerX,centerY,BALL_VELOCITY_INITIAL);
   }
 
 
@@ -42,8 +46,8 @@ public class Ball extends BreakoutObject{
    * to that of the vertices of the platform/brick
    */
   public int collisionDetector(BreakoutObject object) {
-    double ballCenterX = getCenterX();
-    double ballCenterY = getCenterY();
+    double ballCenterX = this.getCenterX();
+    double ballCenterY = this.getCenterY();
     //https://docs.oracle.com/javase/8/javafx/api/javafx/geometry/Bounds.html
     // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html
     //Works on both the walls and the platform because the Group walls and the Group root shares
