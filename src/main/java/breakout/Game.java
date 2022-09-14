@@ -6,10 +6,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -48,7 +45,7 @@ public class Game extends Application {
   // things needed to remember during the game
   private  FieldEdge myFieldEdge;
   private Ball myBall;
-  private Group walls;
+  private Wall myWall;
   private Paddle myPaddle;
   private Scene myScene;
   private Timeline game;
@@ -85,59 +82,16 @@ public class Game extends Application {
     //Set up myPaddle
     myPaddle = new Paddle(myFieldEdge.getX()/2.0);
 
-    wallBuilder(16, 3);
+    //Set up myWall
+    myWall = new Wall();
 
-    Group root = new Group(myBall.getMyNode(), walls, myPaddle.getMyNode());
+    Group root = new Group(myBall.getMyNode(), myWall.getGroupWall(), myPaddle.getMyNode());
     Scene scene = new Scene(root, myFieldEdge.getX(), myFieldEdge.getY(), Color.DARKBLUE);
     //From ExampleAnimation.java by Robert C. Duvall
     scene.setOnKeyPressed(e -> myPaddle.handleKeyInput(e.getCode()));
     return scene;
   }
 
-  /**
-   * Build the Group walls.
-   */
-  public void wallBuilder(int numX, int numY) {
-    Image wall_image = new Image(BRICK_IMAGE);
-    walls = new Group();
-    for (int i = 0; i < numX; i++) {
-      for (int j = 0; j < numY; j++) {
-        ImageView wall = new ImageView(wall_image);
-        wall.setFitWidth(BRICK_SIZE);
-        wall.setFitHeight(BRICK_SIZE);
-        wall.setX(i * BRICK_SIZE);
-        wall.setY(j * BRICK_SIZE);
-        walls.getChildren().add(wall);
-      }
-    }
-  }
-
-
-  /**
-   * Handles collisions with the walls
-   * Hitting brick wall destroys it and reflects ball, increase ball speed.
-   * Behavior inspired by the original game.
-   */
-  public void wallHandler () {
-    for(Node wall : walls.getChildren()) {
-      int collisionStatus = myBall.collisionDetector((ImageView) wall);
-      if (collisionStatus == 0) {
-        continue;
-      }
-      else {
-        if (collisionStatus == 1) {
-          BALL_VELOCITY[1] = - BALL_VELOCITY[1];
-        }
-        else  {
-          BALL_VELOCITY[0] = - BALL_VELOCITY[0];
-        }
-        walls.getChildren().remove(wall);
-        BALL_VELOCITY[0] = 1.1 * BALL_VELOCITY[0];
-        BALL_VELOCITY[1] = 1.1 * BALL_VELOCITY[1];
-        return;
-      }
-    }
-  }
 
   // What to do when restart
   private void handleRestart (KeyCode code) {
@@ -184,7 +138,7 @@ public class Game extends Application {
     else {
       myPaddle.collisionHandler(myBall);
       myFieldEdge.collisionHandler(myPaddle);
-      wallHandler();
+      myWall.collisionHandler(myBall);
       myBall.step(SECOND_DELAY);
     }
   }

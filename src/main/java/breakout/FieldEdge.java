@@ -57,12 +57,12 @@ public class FieldEdge {
    */
   public void collisionHandler(Paddle paddle) {
     ImageView ImageViewPaddle = (ImageView) paddle.getMyNode();
-    double paddleX = paddle.getCenterX();
+    double paddleX = ImageViewPaddle.getX();
     if (paddleX < 0){
-      ImageViewPaddle.setX(X - ImageViewPaddle.getFitWidth()/2);
+      ImageViewPaddle.setX(X);
     }
     if (paddleX > X){
-      ImageViewPaddle.setX(ImageViewPaddle.getFitWidth()/2);
+      ImageViewPaddle.setX(0);
     }
   }
 }
