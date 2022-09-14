@@ -3,11 +3,7 @@ package breakout;
 //Importation by Robert C. Duvall in Main.java (Project breakout)
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.scene.text.*;
+
 
 public class Ball extends BreakoutObject{
   //useful constants
@@ -20,6 +16,9 @@ public class Ball extends BreakoutObject{
 
   //class variables
   private double[] myBallVelocity;
+  private double[] myInitialVelocity;
+  private double initX;
+  private double initY;
 
 
   /**
@@ -27,8 +26,12 @@ public class Ball extends BreakoutObject{
    */
   public Ball (double centerX, double centerY, double[] initialVelocity) {
     super(centerX,centerY,BALL_IMAGE,BALL_SIZE);
+    ImageView ImageViewBall = (ImageView)getMyNode();
+    initX = ImageViewBall.getX();
+    initY = ImageViewBall.getY();
     assert initialVelocity.length == 2;
     myBallVelocity = initialVelocity.clone();
+    myInitialVelocity = initialVelocity.clone();
   }
   public Ball (double centerX, double centerY) {
     this(centerX,centerY,BALL_VELOCITY_INITIAL);
@@ -48,7 +51,6 @@ public class Ball extends BreakoutObject{
     // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html
     //Works on both the walls and the platform because the Group walls and the Group root shares
     // the same coordinate system
-    ImageView ImageViewObject = (ImageView) object.getMyNode();
     Bounds objectBound = object.getObjectBound();
     if (! objectBound.contains(ballCenterX,ballCenterY)) {
       return 0;
@@ -64,6 +66,16 @@ public class Ball extends BreakoutObject{
         return 1;
       }
     }
+  }
+
+  /**
+   * Handles what happen when you missed the ball
+   */
+  public void failHandler() {
+    ImageView ImageViewBall = (ImageView)getMyNode();
+    ImageViewBall.setX(initX);
+    ImageViewBall.setY(initY);
+    myBallVelocity = myInitialVelocity.clone();
   }
 
   /**

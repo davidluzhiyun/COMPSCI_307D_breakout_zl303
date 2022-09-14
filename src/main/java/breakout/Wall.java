@@ -1,7 +1,6 @@
 package breakout;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import javafx.scene.Group;
 
 public class Wall {

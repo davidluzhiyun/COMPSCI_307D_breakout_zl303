@@ -50,7 +50,7 @@ public class Game extends Application {
   private Scene myScene;
   private Timeline game;
   private Stage myStage;
-
+  private LifeCount myLifeCount;
   /**
    * Initialize what will be displayed and that it will be updated regularly.
    * From ExampleAnimation.java by Robert C. Duvall
@@ -85,7 +85,10 @@ public class Game extends Application {
     //Set up myWall
     myWall = new Wall();
 
-    Group root = new Group(myBall.getMyNode(), myWall.getGroupWall(), myPaddle.getMyNode());
+    //Set up myLifeCount
+    myLifeCount = new LifeCount(myFieldEdge.getX()/2.0,myFieldEdge.getY()/2.0);
+
+    Group root = new Group(myBall.getMyNode(), myWall.getGroupWall(), myPaddle.getMyNode(),myLifeCount.getMyNode());
     Scene scene = new Scene(root, myFieldEdge.getX(), myFieldEdge.getY(), Color.DARKBLUE);
     //From ExampleAnimation.java by Robert C. Duvall
     scene.setOnKeyPressed(e -> myPaddle.handleKeyInput(e.getCode()));
@@ -132,8 +135,12 @@ public class Game extends Application {
   // Note, there are more sop
   private void step (){
     if (! myFieldEdge.collisionHandler(myBall)){
-      game.stop();
-      gameoverHandler();
+      if (myLifeCount.failHandler()){
+        myBall.failHandler();
+      }
+      else {
+        gameoverHandler();
+      }
     }
     else {
       myPaddle.collisionHandler(myBall);
