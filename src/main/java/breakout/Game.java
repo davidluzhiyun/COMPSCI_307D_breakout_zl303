@@ -27,17 +27,17 @@ public class Game extends Application {
 
   // useful names for constant values used
   // modified from Main.java by Robert C. Duvall
-  public final String TITLE = "Example JavaFX Animation";
-  public final int SIZE = 400;
+  public final static String TITLE = "Example JavaFX Animation";
+  public final static int SIZE = 400;
   // many resources may be in the same shared folder
   // note, leading slash means automatically start in "src/main/resources" folder
   // note, Java always uses forward slash, "/", (even for Windows)
   public final String RESOURCE_PATH = "/breakout/";
   public final String BALL_IMAGE = RESOURCE_PATH + "ball.gif";
-  public final String WALL_IMAGE = RESOURCE_PATH + "wall.png";
+  public final String BRICK_IMAGE = RESOURCE_PATH + "wall.png";
   public final String PADDLE_IMAGE = RESOURCE_PATH + "paddle.png";
 
-  public final int WALL_SIZE = 25;
+  public final int BRICK_SIZE = 25;
   public final int PADDLE_HEIGHT = 14;
   public static final int PADDLE_CENTER_Y = 350;
 
@@ -46,6 +46,7 @@ public class Game extends Application {
   public final int FRAMES_PER_SECOND = 120;
   public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   // things needed to remember during the game
+  private  FieldEdge myFieldEdge;
   private Ball myBall;
   private Group walls;
   private Paddle myPaddle;
@@ -96,68 +97,20 @@ public class Game extends Application {
    * Build the Group walls.
    */
   public void wallBuilder(int numX, int numY) {
-    Image wall_image = new Image(WALL_IMAGE);
+    Image wall_image = new Image(BRICK_IMAGE);
     walls = new Group();
     for (int i = 0; i < numX; i++) {
       for (int j = 0; j < numY; j++) {
         ImageView wall = new ImageView(wall_image);
-        wall.setFitWidth(WALL_SIZE);
-        wall.setFitHeight(WALL_SIZE);
-        wall.setX(i * WALL_SIZE);
-        wall.setY(j * WALL_SIZE);
+        wall.setFitWidth(BRICK_SIZE);
+        wall.setFitHeight(BRICK_SIZE);
+        wall.setX(i * BRICK_SIZE);
+        wall.setY(j * BRICK_SIZE);
         walls.getChildren().add(wall);
       }
     }
   }
 
-  /**
-   * Handles collisions with the edge of the playable area.
-   * Ball gets reflected unless hitting the lower edge, which ends the game
-   *
-   */
-  public boolean edgeHandler () {
-    double ballX = ball.getX() + ball.getBoundsInLocal().getWidth()/2;
-    double ballY = ball.getY() + ball.getBoundsInLocal().getHeight()/2;
-    if (ballY > SIZE) {
-      return false;
-    }
-    else {
-      if (ballX < 0 || ballX > SIZE) {
-        BALL_VELOCITY[0] = - BALL_VELOCITY[0];
-      }
-      if (ballY < 0) {
-        BALL_VELOCITY[1] = - BALL_VELOCITY[1];
-      }
-      return true;
-    }
-  }
-
-  /**
-   * Handles collisions with platform.
-   * Hitting top/bottom reflect ball normally.
-   * Hitting sides reverse the velocity of the ball.
-   * Behavior inspired by the original game.
-   */
-  public void paddleHandler() {
-    int collisionStatus = myBall.collisionDetector(myPaddle);
-    if (myPaddle.getX() < 0) {
-      myPaddle.setX(SIZE);
-    }
-    if (myPaddle.getX() > SIZE) {
-      myPaddle.setX(0);
-    }
-    switch (collisionStatus) {
-      case 0:
-        return;
-      case 1:
-        BALL_VELOCITY[1] = - BALL_VELOCITY[1];
-        break;
-      case 2:
-        BALL_VELOCITY[0] = - BALL_VELOCITY[0];
-        BALL_VELOCITY[1] = - BALL_VELOCITY[1];
-        break;
-    }
-  }
 
   /**
    * Handles collisions with the walls
@@ -225,12 +178,13 @@ public class Game extends Application {
   // - goals: did the game or level end?
   // Note, there are more sop
   private void step (){
-    if (! edgeHandler()){
+    if (! myFieldEdge.collisionHandler(myBall)){
       game.stop();
       gameoverHandler();
     }
     else {
       myPaddle.collisionHandler(myBall);
+      myFieldEdge.collisionHandler(myPaddle);
       wallHandler();
       myBall.step(SECOND_DELAY);
     }

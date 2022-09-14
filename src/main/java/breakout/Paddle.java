@@ -1,23 +1,15 @@
 package breakout;
 
 //Importation by Robert C. Duvall in Main.java (Project breakout)
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.geometry.Bounds;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.scene.text.*;
+
 
 public class Paddle extends BreakoutObject{
   //useful constants
+  // many resources may be in the same shared folder
+  // note, leading slash means automatically start in "src/main/resources" folder
+  // note, Java always uses forward slash, "/", (even for Windows)
   public static final String PADDLE_IMAGE = RESOURCE_PATH + "paddle.png";
   public static final int PADDLE_HEIGHT = 14;
   public static final int PADDLE_SPEED = 8;
@@ -51,7 +43,7 @@ public class Paddle extends BreakoutObject{
 
   //Base on code by Robert C. Duvall in ExampleAnimation.java
   // What to do each time a key is pressed
-  void handleKeyInput (KeyCode code) {
+  public void handleKeyInput (KeyCode code) {
     // NOTE new Java syntax that some prefer (but watch out for the many special cases!)
     //   https://blog.jetbrains.com/idea/2019/02/java-12-and-intellij-idea/
     ImageView ImageViewPaddle = (ImageView) getMyNode();

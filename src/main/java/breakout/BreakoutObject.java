@@ -1,24 +1,17 @@
 package breakout;
 
 //Importation by Robert C. Duvall in Main.java (Project breakout)
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.geometry.Bounds;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.scene.text.*;
 
 
 public class BreakoutObject {
   //useful constants
+  // many resources may be in the same shared folder
+  // note, leading slash means automatically start in "src/main/resources" folder
+  // note, Java always uses forward slash, "/", (even for Windows)
   public static final String RESOURCE_PATH = "/breakout/";
 
   //class variables

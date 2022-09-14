@@ -1,14 +1,7 @@
 package breakout;
 
 //Importation by Robert C. Duvall in Main.java (Project breakout)
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.geometry.Bounds;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -18,6 +11,9 @@ import javafx.scene.text.*;
 
 public class Ball extends BreakoutObject{
   //useful constants
+  // many resources may be in the same shared folder
+  // note, leading slash means automatically start in "src/main/resources" folder
+  // note, Java always uses forward slash, "/", (even for Windows)
   public static final int BALL_SIZE = 14;
   public static final double[] BALL_VELOCITY_INITIAL = {30, 30};
   public static final String BALL_IMAGE = RESOURCE_PATH + "ball.gif";
