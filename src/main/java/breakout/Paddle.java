@@ -15,9 +15,17 @@ public class Paddle extends BreakoutObject{
   public static final int PADDLE_SPEED = 8;
   public static final int PADDLE_CENTER_Y = 350;
   //class variables
+
+  /**
+   * Constructs Paddle with center at given position
+   */
   public Paddle (double centerX, double centerY) {
     super(centerX,centerY,PADDLE_IMAGE,PADDLE_HEIGHT);
   }
+  public Paddle(double centerX) {
+    this(centerX, PADDLE_CENTER_Y);
+  }
+
 
   /**
    * Handles collisions with the ball.

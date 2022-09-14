@@ -78,16 +78,17 @@ public class Game extends Application {
   // Create the game's "scene": what shapes will be in the game and their starting properties
   public Scene setupGame() {
     //Set up myBall
-    myBall = new Ball(SIZE/2,SIZE/2);
+    myFieldEdge = new FieldEdge();
+    myBall = new Ball(myFieldEdge.getX()/2.0,myFieldEdge.getY()/2.0);
 
 
     //Set up myPaddle
-    myPaddle = new Paddle(SIZE/2,Paddle.PADDLE_CENTER_Y)
+    myPaddle = new Paddle(myFieldEdge.getX()/2.0);
 
     wallBuilder(16, 3);
 
     Group root = new Group(myBall.getMyNode(), walls, myPaddle.getMyNode());
-    Scene scene = new Scene(root, SIZE, SIZE, Color.DARKBLUE);
+    Scene scene = new Scene(root, myFieldEdge.getX(), myFieldEdge.getY(), Color.DARKBLUE);
     //From ExampleAnimation.java by Robert C. Duvall
     scene.setOnKeyPressed(e -> myPaddle.handleKeyInput(e.getCode()));
     return scene;
@@ -144,8 +145,6 @@ public class Game extends Application {
     //   https://blog.jetbrains.com/idea/2019/02/java-12-and-intellij-idea/
     if (code == KeyCode.SPACE) {
       myStage.close();
-      BALL_VELOCITY[0] = BALL_VELOCITY_INITIAL[0];
-      BALL_VELOCITY[1] = BALL_VELOCITY_INITIAL[1];
       start(new Stage());
     }
   }
@@ -159,10 +158,10 @@ public class Game extends Application {
     Font f = new Font(36);
     over.setFont(f);
     Bounds textBounds = over.getBoundsInParent();
-    over.setX(SIZE / 2 - textBounds.getWidth() / 2);
-    over.setY(SIZE / 2 - textBounds.getHeight() / 2);
+    over.setX(myFieldEdge.getX() / 2 - textBounds.getWidth() / 2);
+    over.setY(myFieldEdge.getY() / 2 - textBounds.getHeight() / 2);
     Group root = new Group(over);
-    Scene deathScene = new Scene(root, SIZE, SIZE, Color.DARKBLUE);
+    Scene deathScene = new Scene(root, myFieldEdge.getX(), myFieldEdge.getY(), Color.DARKBLUE);
     deathScene.setOnKeyPressed(e -> handleRestart(e.getCode()));
     myScene = deathScene;
     myStage.setScene(deathScene);

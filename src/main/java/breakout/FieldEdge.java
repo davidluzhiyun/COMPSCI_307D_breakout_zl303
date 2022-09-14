@@ -17,8 +17,17 @@ public class FieldEdge {
     Y = edgeY;
   }
   public FieldEdge() {
-    X = SIZE;
-    Y = SIZE;
+    this(SIZE,SIZE);
+  }
+  /**
+   * Get X and Y
+   */
+  public int getX() {
+    return X;
+  }
+
+  public int getY() {
+    return Y;
   }
 
   /**
