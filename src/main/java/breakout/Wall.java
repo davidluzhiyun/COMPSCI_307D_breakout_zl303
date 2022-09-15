@@ -1,6 +1,7 @@
 package breakout;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import javafx.scene.Group;
 
 public class Wall {
@@ -27,6 +28,40 @@ public class Wall {
       }
     }
   }
+  /**
+   * Construct a wall from given file.
+   */
+  public Wall (String levelLayout) {
+    GroupWall = new Group();
+    ListWall = new ArrayList<>();
+    Scanner input = new Scanner(Wall.class.getResourceAsStream(levelLayout));
+    int j = 0;
+    while (input.hasNextLine()) {
+      int i = 0;
+      Scanner line = new Scanner(input.nextLine());
+      while (line.hasNextInt()){
+        int type = line.nextInt();
+        switch (type){
+          case 1:
+            Brick currentBrick = new Brick(i * Brick.BRICK_X_SIZE,j*Brick.BRICK_Y_SIZE);
+            ListWall.add(currentBrick);
+            GroupWall.getChildren().add(currentBrick.getMyNode());
+            break;
+          case 2:
+            PowerBrick currentPowerBrick = new PowerBrick(i * Brick.BRICK_X_SIZE,j*Brick.BRICK_Y_SIZE);
+            ListWall.add(currentPowerBrick);
+            GroupWall.getChildren().add(currentPowerBrick.getMyNode());
+            break;
+          case 0:
+            break;
+          default://Subject to change when there are more types of powerbrick;
+            break;
+        }
+        i += 1;
+      }
+      j += 1;
+    }
+  }
   public  Wall (){
     this(DEFAULT_NUM_X,DEFAULT_NUM_Y);
   }
@@ -37,6 +72,7 @@ public class Wall {
   public Group getGroupWall() {
     return GroupWall;
   }
+
 
   /**
    * Handles collisions with the ball

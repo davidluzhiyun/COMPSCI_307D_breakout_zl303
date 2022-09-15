@@ -34,6 +34,9 @@ https://www.deviantart.com/trarian/art/Red-Brick-Wall-8-bit-905507140
 Platform Main by 9664c4 on pixelartmaker.com
 http://pixelartmaker.com/art/72bd303189fe5db
 
+Mystery Box by Squid Face on Amino
+https://aminoapps.com/c/nintendo-switch-1/page/blog/whats-inside-the-mystery-box-5/j0lD_EPouKu3amXbjpkQMebm3EmLag0eV6W
+
 ### Running the Program
 
 Main class:

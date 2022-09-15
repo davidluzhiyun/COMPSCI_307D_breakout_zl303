@@ -19,11 +19,18 @@ public class Brick extends BreakoutObject{
   /**
    * Construct Ball with left top corner at given coordinate
    */
-  public Brick(int X, int Y){
-    super(0,0,BRICK_IMAGE, BRICK_Y_SIZE);
+  public Brick(int X, int Y, String image){
+    super(0,0,image, BRICK_Y_SIZE);
     ImageView ImageViewBrick = (ImageView) getMyNode();
     ImageViewBrick.setX(X);
     ImageViewBrick.setY(Y);
+  }
+  public Brick(int X, int Y){
+    this(X,Y, BRICK_IMAGE);
+  }
+
+  public void hit(){
+
   }
 
 }

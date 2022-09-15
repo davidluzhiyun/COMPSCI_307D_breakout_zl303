@@ -83,7 +83,7 @@ public class Game extends Application {
     myPaddle = new Paddle(myFieldEdge.getX()/2.0);
 
     //Set up myWall
-    myWall = new Wall();
+    myWall = new Wall("/breakout/level_test.txt");
 
     //Set up myLifeCount
     myLifeCount = new LifeCount(myFieldEdge.getX()/2.0,myFieldEdge.getY()/2.0);
