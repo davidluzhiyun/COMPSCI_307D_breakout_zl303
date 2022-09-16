@@ -12,4 +12,8 @@ public class PowerBrick extends Brick{
   public PowerBrick(int X, int Y){
     super(X, Y, POWER_BRICK_IMAGE);
   }
+
+  public void buildPowerup(PowerUpManager manager){
+    // do nothing
+  }
 }

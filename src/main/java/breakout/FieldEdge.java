@@ -8,13 +8,14 @@ public class FieldEdge {
   //class variable
   private int X;
   private int Y;
-
+  private boolean powered;
   /**
    * Construct FieldEdge with given dimensions
    */
   public FieldEdge (int edgeX,int edgeY) {
     X = edgeX;
     Y = edgeY;
+    powered = false;
   }
   public FieldEdge() {
     this(SIZE,SIZE);
@@ -31,6 +32,13 @@ public class FieldEdge {
   }
 
   /**
+   * Power up. Bottom edge reflects Ball now
+   */
+  public void powerup(){
+    powered = true;
+  }
+
+  /**
    * Handles collisions with the Ball. Ball gets reflected unless hitting the
    * lower edge, which ends the game
    */
@@ -38,14 +46,14 @@ public class FieldEdge {
     double ballX = ball.getCenterX();
     double ballY = ball.getCenterY();
     double[] ballVelocity = ball.getMyBallVelocity();
-    if (ballY > X) {
+    if ((!powered) && ballY > Y){
       return false;
     }
     else {
       if (ballX < 0 || ballX > X) {
         ballVelocity[0] = - ballVelocity[0];
       }
-      if (ballY < 0) {
+      if (ballY < 0 || ballX > Y) {
         ballVelocity[1] = - ballVelocity[1];
       }
       return true;

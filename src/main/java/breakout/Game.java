@@ -149,7 +149,16 @@ public class Game extends Application {
       myBall.step(SECOND_DELAY);
     }
   }
+  /**
+   * Just some getters
+   */
+  public Paddle getMyPaddle() {
+    return myPaddle;
+  }
 
+  public FieldEdge getMyFieldEdge() {
+    return myFieldEdge;
+  }
 
   /**
    * Start the program.

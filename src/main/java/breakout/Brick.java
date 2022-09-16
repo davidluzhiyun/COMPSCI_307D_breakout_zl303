@@ -29,8 +29,8 @@ public class Brick extends BreakoutObject{
     this(X,Y, BRICK_IMAGE);
   }
 
-  public void hit(){
-
+  public void buildPowerup(PowerUpManager manager){
+    // do nothing
   }
 
 }
