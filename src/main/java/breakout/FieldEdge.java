@@ -53,8 +53,11 @@ public class FieldEdge {
       if (ballX < 0 || ballX > X) {
         ballVelocity[0] = - ballVelocity[0];
       }
-      if (ballY < 0 || ballX > Y) {
+      if (ballY < 0 || ballY > Y) {
         ballVelocity[1] = - ballVelocity[1];
+        if (ballY > Y){
+          powered = false;
+        }
       }
       return true;
     }

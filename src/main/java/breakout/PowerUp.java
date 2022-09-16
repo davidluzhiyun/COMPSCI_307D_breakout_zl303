@@ -18,7 +18,7 @@ public class PowerUp {
 
   public PowerUp(double X, double Y) {
     active = false;
-    Rectangle myShape = new Rectangle(POWER_UP_SIZE/2.0,POWER_UP_SIZE/2.0, Color.RED);
+    Rectangle myShape = new Rectangle(POWER_UP_SIZE,POWER_UP_SIZE, Color.RED);
     myShape.setX(X);
     myShape.setY(Y);
     myNode = myShape;
@@ -47,7 +47,7 @@ public class PowerUp {
     Rectangle RectangleNode = (Rectangle) myNode;
     if (active){
       collisionHandler(game);
-      RectangleNode.setY(RectangleNode.getY()+ POWER_UP_SPEED * game.SECOND_DELAY);
+      RectangleNode.setY(RectangleNode.getY()+ POWER_UP_SPEED * Game.SECOND_DELAY);
     }
   }
 

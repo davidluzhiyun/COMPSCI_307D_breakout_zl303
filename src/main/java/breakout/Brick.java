@@ -29,8 +29,14 @@ public class Brick extends BreakoutObject{
     this(X,Y, BRICK_IMAGE);
   }
 
-  public void buildPowerup(PowerUpManager manager){
+  /**
+   * Powerup related stuff
+   */
+  public void buildPowerUp(PowerUpManager manager){
     // do nothing
+  }
+  public void usePowerUp(PowerUpManager manager) {
+    //do nothing
   }
 
 }

@@ -24,24 +24,24 @@ public class Game extends Application {
 
   // useful names for constant values used
   // modified from Main.java by Robert C. Duvall
-  public final static String TITLE = "Example JavaFX Animation";
-  public final static int SIZE = 400;
+  public static final String TITLE = "Example JavaFX Animation";
+  public static final int SIZE = 400;
   // many resources may be in the same shared folder
   // note, leading slash means automatically start in "src/main/resources" folder
   // note, Java always uses forward slash, "/", (even for Windows)
-  public final String RESOURCE_PATH = "/breakout/";
-  public final String BALL_IMAGE = RESOURCE_PATH + "ball.gif";
-  public final String BRICK_IMAGE = RESOURCE_PATH + "wall.png";
-  public final String PADDLE_IMAGE = RESOURCE_PATH + "paddle.png";
+  public static final String RESOURCE_PATH = "/breakout/";
+  public static final String BALL_IMAGE = RESOURCE_PATH + "ball.gif";
+  public static final String BRICK_IMAGE = RESOURCE_PATH + "wall.png";
+  public static final String PADDLE_IMAGE = RESOURCE_PATH + "paddle.png";
 
-  public final int BRICK_SIZE = 25;
-  public final int PADDLE_HEIGHT = 14;
+  public static final int BRICK_SIZE = 25;
+  public static final int PADDLE_HEIGHT = 14;
   public static final int PADDLE_CENTER_Y = 350;
 
-  public int PADDLE_SPEED = 8;
+  public static final int PADDLE_SPEED = 8;
   //Inspired ExampleAnimation.java by Robert C. Duvall
-  public final int FRAMES_PER_SECOND = 120;
-  public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+  public static final int FRAMES_PER_SECOND = 120;
+  public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   // things needed to remember during the game
   private  FieldEdge myFieldEdge;
   private Ball myBall;
@@ -51,6 +51,7 @@ public class Game extends Application {
   private Timeline game;
   private Stage myStage;
   private LifeCount myLifeCount;
+  private PowerUpManager myManager;
   /**
    * Initialize what will be displayed and that it will be updated regularly.
    * From ExampleAnimation.java by Robert C. Duvall
@@ -85,10 +86,13 @@ public class Game extends Application {
     //Set up myWall
     myWall = new Wall("/breakout/level_test.txt");
 
+    //Set up myManager
+    myManager = new PowerUpManager(myWall);
+
     //Set up myLifeCount
     myLifeCount = new LifeCount(myFieldEdge.getX()/2.0,myFieldEdge.getY()/2.0);
 
-    Group root = new Group(myBall.getMyNode(), myWall.getGroupWall(), myPaddle.getMyNode(),myLifeCount.getMyNode());
+    Group root = new Group(myBall.getMyNode(), myWall.getGroupWall(), myPaddle.getMyNode(),myLifeCount.getMyNode(),myManager.getMyGroup());
     Scene scene = new Scene(root, myFieldEdge.getX(), myFieldEdge.getY(), Color.DARKBLUE);
     //From ExampleAnimation.java by Robert C. Duvall
     scene.setOnKeyPressed(e -> myPaddle.handleKeyInput(e.getCode()));
@@ -143,9 +147,10 @@ public class Game extends Application {
       }
     }
     else {
+      myManager.step(this);
       myPaddle.collisionHandler(myBall);
       myFieldEdge.collisionHandler(myPaddle);
-      myWall.collisionHandler(myBall);
+      myWall.collisionHandler(myBall,myManager);
       myBall.step(SECOND_DELAY);
     }
   }

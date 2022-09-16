@@ -72,7 +72,12 @@ public class Wall {
   public Group getGroupWall() {
     return GroupWall;
   }
-
+  /**
+   * Get the Arraylist
+   */
+  public ArrayList<Brick> getListWall() {
+    return ListWall;
+  }
 
   /**
    * Handles collisions with the ball
@@ -80,7 +85,7 @@ public class Wall {
    * speed. Behavior inspired by the original game.
    *
    */
-  public void collisionHandler(Ball ball) {
+  public void collisionHandler(Ball ball,PowerUpManager manager) {
     for(Brick thisBrick : ListWall) {
       int collisionStatus = ball.collisionDetector(thisBrick);
       double[] ballVelocity = ball.getMyBallVelocity();
@@ -94,6 +99,7 @@ public class Wall {
         else  {
           ballVelocity[0] = - ballVelocity[0];
         }
+        thisBrick.usePowerUp(manager);
         ListWall.remove(thisBrick);
         GroupWall.getChildren().remove(thisBrick.getMyNode());
         ballVelocity[0] = SPEEDING_FACTOR * ballVelocity[0];
