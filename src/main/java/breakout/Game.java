@@ -39,6 +39,7 @@ public class Game extends Application {
   public static final int PADDLE_CENTER_Y = 350;
 
   public static final int PADDLE_SPEED = 8;
+  public static final String[] LEVELS = {RESOURCE_PATH + "level_test.txt", RESOURCE_PATH + "level1.txt", RESOURCE_PATH + "level2.txt"};
   //Inspired ExampleAnimation.java by Robert C. Duvall
   public static final int FRAMES_PER_SECOND = 120;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -52,14 +53,25 @@ public class Game extends Application {
   private Stage myStage;
   private LifeCount myLifeCount;
   private PowerUpManager myManager;
+  //goes from 0 to 2
+  private int myLevel;
   /**
    * Initialize what will be displayed and that it will be updated regularly.
    * From ExampleAnimation.java by Robert C. Duvall
    */
   @Override
   public void start (Stage stage) {
+    start(stage,0);
+  }
+
+  /**
+   * Start according to given level, makes sure myLevel is within range
+   */
+  public void start (Stage stage, int level) {
     // attach scene to the stage and display it
-    myScene = setupGame();
+    level = Math.max(level,0);
+    level = Math.min(level, 2);
+    myScene = setupGame(level);
     stage.setScene(myScene);
     stage.setTitle(TITLE);
     myStage = stage;
@@ -74,7 +86,7 @@ public class Game extends Application {
 
   //Inspired by Robert C. Duvall's ExampleAnimation.java and Main.java (breakout)
   // Create the game's "scene": what shapes will be in the game and their starting properties
-  public Scene setupGame() {
+  public Scene setupGame(int level) {
     //Set up myBall
     myFieldEdge = new FieldEdge();
     myBall = new Ball(myFieldEdge.getX()/2.0,myFieldEdge.getY()/2.0);
@@ -84,7 +96,7 @@ public class Game extends Application {
     myPaddle = new Paddle(myFieldEdge.getX()/2.0);
 
     //Set up myWall
-    myWall = new Wall("/breakout/level_test.txt");
+    myWall = new Wall(LEVELS[level]);
 
     //Set up myManager
     myManager = new PowerUpManager(myWall);
@@ -95,18 +107,66 @@ public class Game extends Application {
     Group root = new Group(myBall.getMyNode(), myWall.getGroupWall(), myPaddle.getMyNode(),myLifeCount.getMyNode(),myManager.getMyGroup());
     Scene scene = new Scene(root, myFieldEdge.getX(), myFieldEdge.getY(), Color.DARKBLUE);
     //From ExampleAnimation.java by Robert C. Duvall
-    scene.setOnKeyPressed(e -> myPaddle.handleKeyInput(e.getCode()));
+    scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
     return scene;
   }
 
+  /**
+   * Handles key control and cheat
+   */
+  private void handleKeyInput (KeyCode code) {
+    // NOTE new Java syntax that some prefer (but watch out for the many special cases!)
+    //   https://blog.jetbrains.com/idea/2019/02/java-12-and-intellij-idea/
+    myPaddle.handleKeyInput(code);
+    handleCheat(code);
+  }
+  private void handleCheat (KeyCode code) {
+    if (code.isDigitKey()){
+      int level = Integer.parseInt(code.getChar()) - 1;
+      level = Math.min(level, 2);
+      myLevel = level;
+      restart();
+    }
+    else {
+      switch (code) {
+        case L -> myLifeCount.increaseLife();
+        case R -> restart();
+      }
+    }
+  }
 
   // What to do when restart
   private void handleRestart (KeyCode code) {
     // NOTE new Java syntax that some prefer (but watch out for the many special cases!)
     //   https://blog.jetbrains.com/idea/2019/02/java-12-and-intellij-idea/
     if (code == KeyCode.SPACE) {
-      myStage.close();
-      start(new Stage());
+      restart();
+    }
+  }
+
+  /**
+   * Restart according to current myLevel
+   */
+  private void restart() {
+    // NOTE new Java syntax that some prefer (but watch out for the many special cases!)
+    //   https://blog.jetbrains.com/idea/2019/02/java-12-and-intellij-idea/
+    myStage.close();
+    start(new Stage(),myLevel);
+  }
+  /**
+   * Handles Clearing
+   */
+  private void clearHandler() {
+    // NOTE new Java syntax that some prefer (but watch out for the many special cases!)
+    //   https://blog.jetbrains.com/idea/2019/02/java-12-and-intellij-idea/
+    if (myWall.getListWall().isEmpty()){
+      myLevel += 1;
+      if (myLevel < 3){
+        restart();
+      }
+      else {
+        myStage.close();
+      }
     }
   }
 
@@ -147,6 +207,7 @@ public class Game extends Application {
       }
     }
     else {
+      clearHandler();
       myManager.step(this);
       myPaddle.collisionHandler(myBall);
       myFieldEdge.collisionHandler(myPaddle);

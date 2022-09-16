@@ -28,7 +28,7 @@ public class LifeCount {
   }
 
   /**
-   * Handles what happen when you missed the ball
+   * Handles what happen when you missed the ball,return if you are still alive
    */
   public boolean failHandler() {
     myLives -= 1;
@@ -42,6 +42,14 @@ public class LifeCount {
     else {
       return false;
     }
+  }
+
+  /**
+   * Increase lives for Cheating,utilizes failureHandler
+   */
+  public void increaseLife () {
+    myLives += 2;
+    failHandler();
   }
 
   /**

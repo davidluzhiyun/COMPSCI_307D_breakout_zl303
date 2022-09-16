@@ -68,11 +68,13 @@ Known Bugs:
 collision might not be correctly processed.
 2. Due to 1, the ball sometimes just cut through 2 brick walls without changing
 course
+3. Mysterious speeding after death and restart and level switching
 
 
 Extra features or interesting things we should not miss:
 
-1.Platform goes to the other side of the screen when travels too far 
+1. Platform goes to the other side of the screen when travels too far 
+2. Power-Up that make the ball invincible before the next miss
 
 ### Impressions
 The collision detection method requires improvement. The structure for the code
