@@ -70,7 +70,7 @@ public class Game extends Application {
   public void start (Stage stage, int level) {
     // attach scene to the stage and display it
     level = Math.max(level,0);
-    level = Math.min(level, 2);
+    level = Math.min(level, LEVELS.length-1);
     myScene = setupGame(level);
     stage.setScene(myScene);
     stage.setTitle(TITLE);
@@ -123,7 +123,7 @@ public class Game extends Application {
   private void handleCheat (KeyCode code) {
     if (code.isDigitKey()){
       int level = Integer.parseInt(code.getChar()) - 1;
-      level = Math.min(level, 2);
+      level = Math.min(level, LEVELS.length-1);
       myLevel = level;
       restart();
     }

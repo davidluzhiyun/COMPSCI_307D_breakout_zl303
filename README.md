@@ -19,9 +19,9 @@ Hours Spent: 35.5
 
 Start Date: 9/10/2022 (12:00)
 
-Finish Date: 9/5/2022 (1:55)
+Finish Date: 9/16/2022 (1:30)
 
-Hours Spent: 35.5
+Hours Spent: N/A (Long pauses due to COVID-19)
 
 ### Resources Used
 
@@ -50,7 +50,9 @@ Key/Mouse inputs:
 * SPACE to restart game after death
 
 Cheat keys:
-
+* L for more lives
+* R to restart
+* Digit Keys for level warping
 
 ### Notes/Assumptions
 
