@@ -5,7 +5,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 
 
-public class Ball extends BreakoutObject{
+public class Ball extends BreakoutEntities {
   //useful constants
   // many resources may be in the same shared folder
   // note, leading slash means automatically start in "src/main/resources" folder
@@ -32,6 +32,7 @@ public class Ball extends BreakoutObject{
     assert initialVelocity.length == 2;
     myBallVelocity = initialVelocity.clone();
     myInitialVelocity = initialVelocity.clone();
+    System.out.printf("%f",myBallVelocity[0],myBallVelocity[1]);
   }
   public Ball (double centerX, double centerY) {
     this(centerX,centerY,BALL_VELOCITY_INITIAL);
@@ -44,7 +45,7 @@ public class Ball extends BreakoutObject{
    * it hits by comparing the position angle of the ball relative to the center of the platform/brick
    * to that of the vertices of the platform/brick
    */
-  public int collisionDetector(BreakoutObject object) {
+  public int collisionDetector(BreakoutEntities object) {
     double ballCenterX = this.getCenterX();
     double ballCenterY = this.getCenterY();
     //https://docs.oracle.com/javase/8/javafx/api/javafx/geometry/Bounds.html

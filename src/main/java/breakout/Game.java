@@ -151,6 +151,7 @@ public class Game extends Application {
     // NOTE new Java syntax that some prefer (but watch out for the many special cases!)
     //   https://blog.jetbrains.com/idea/2019/02/java-12-and-intellij-idea/
     myStage.close();
+    game.stop();
     start(new Stage(),myLevel);
   }
   /**

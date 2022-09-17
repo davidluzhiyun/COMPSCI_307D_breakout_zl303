@@ -1,6 +1,7 @@
 package breakout;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import javafx.scene.Group;
 
@@ -12,7 +13,7 @@ public class Wall {
   //class variable
   private Group GroupWall;
   //Inspired by https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html
-  private ArrayList<Brick> ListWall;
+  private List<Brick> ListWall;
 
   /**
    * Construct a wall given columns and rows.
@@ -75,7 +76,7 @@ public class Wall {
   /**
    * Get the Arraylist
    */
-  public ArrayList<Brick> getListWall() {
+  public List<Brick> getListWall() {
     return ListWall;
   }
 

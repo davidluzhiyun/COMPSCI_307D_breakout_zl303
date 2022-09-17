@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
-public class BreakoutObject {
+public abstract class BreakoutEntities {
   //useful constants
   // many resources may be in the same shared folder
   // note, leading slash means automatically start in "src/main/resources" folder
@@ -20,8 +20,8 @@ public class BreakoutObject {
   /**
    * Construct Default Ball with center at given coordinate
    */
-  public BreakoutObject (double centerX, double centerY, String path, int height) {
-    ImageView ImageViewObject = new ImageView(new Image(Ball.class.getResourceAsStream(path)));
+  public BreakoutEntities(double centerX, double centerY, String path, int height) {
+    ImageView ImageViewObject = new ImageView(new Image(BreakoutEntities.class.getResourceAsStream(path)));
     ImageViewObject.setPreserveRatio(true);
     ImageViewObject.setFitHeight(height);
     ImageViewObject.setX(centerX - ImageViewObject.getBoundsInLocal().getWidth() / 2);
@@ -57,4 +57,6 @@ public class BreakoutObject {
     Bounds objectBound = ImageViewObject.getBoundsInParent();
     return objectBound;
   }
+
+
 }

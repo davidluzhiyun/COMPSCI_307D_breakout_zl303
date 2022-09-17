@@ -3,7 +3,7 @@ package breakout;
 
 import javafx.scene.image.ImageView;
 
-public class Brick extends BreakoutObject{
+public class Brick extends BreakoutEntities {
   //useful constants
   // many resources may be in the same shared folder
   // note, leading slash means automatically start in "src/main/resources" folder

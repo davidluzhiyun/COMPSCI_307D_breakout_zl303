@@ -1,12 +1,13 @@
 package breakout;
 
 import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.Group;
 
 public class PowerUpManager {
   //class variables
   private Group myGroup;
-  private ArrayList<PowerUp> PowerUplist;
+  private List<PowerUp> PowerUplist;
 
   /**
    * Construct from given wall
@@ -35,7 +36,7 @@ public class PowerUpManager {
     return myGroup;
   }
 
-  public ArrayList<PowerUp> getPowerUplist() {
+  public List<PowerUp> getPowerUplist() {
     return PowerUplist;
   }
 }

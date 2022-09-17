@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 
 
-public class Paddle extends BreakoutObject{
+public class Paddle extends BreakoutEntities {
   //useful constants
   // many resources may be in the same shared folder
   // note, leading slash means automatically start in "src/main/resources" folder
