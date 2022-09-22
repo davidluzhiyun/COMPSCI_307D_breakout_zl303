@@ -50,6 +50,11 @@ public class Wall {
             ListWall.add(currentBrick);
             GroupWall.getChildren().add(currentBrick.getMyNode());
             break;
+          case 5:
+            NukeBrick currentNukeBrick = new NukeBrick(i * Brick.BRICK_X_SIZE,j*Brick.BRICK_Y_SIZE);
+            ListWall.add(currentNukeBrick);
+            GroupWall.getChildren().add(currentNukeBrick.getMyNode());
+            break;
           default:
             PowerBrick currentPowerBrick = new PowerBrick(i * Brick.BRICK_X_SIZE,j*Brick.BRICK_Y_SIZE, type);
             ListWall.add(currentPowerBrick);
@@ -84,7 +89,7 @@ public class Wall {
    * speed. Behavior inspired by the original game.
    *
    */
-  public void collisionHandler(Ball ball,PowerUpManager manager) {
+  public void collisionHandler(Ball ball,PowerUpManager manager,Game game) {
     for(AbstractBrick thisBrick : ListWall) {
       int collisionStatus = ball.collisionDetector(thisBrick);
       double[] ballVelocity = ball.getMyBallVelocity();
@@ -98,6 +103,7 @@ public class Wall {
         else  {
           ballVelocity[0] = - ballVelocity[0];
         }
+        thisBrick.effect(game);
         thisBrick.usePowerUp(manager);
         ListWall.remove(thisBrick);
         GroupWall.getChildren().remove(thisBrick.getMyNode());

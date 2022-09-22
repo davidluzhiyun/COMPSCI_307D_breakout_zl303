@@ -147,7 +147,7 @@ public class Game extends Application {
   /**
    * Restart according to current myLevel
    */
-  private void restart() {
+  public void restart() {
     // NOTE new Java syntax that some prefer (but watch out for the many special cases!)
     //   https://blog.jetbrains.com/idea/2019/02/java-12-and-intellij-idea/
     myStage.close();
@@ -212,7 +212,7 @@ public class Game extends Application {
       myManager.step(this);
       myPaddle.collisionHandler(myBall);
       myFieldEdge.collisionHandler(myPaddle);
-      myWall.collisionHandler(myBall,myManager);
+      myWall.collisionHandler(myBall,myManager,this);
       myBall.step(SECOND_DELAY);
     }
   }
@@ -233,6 +233,14 @@ public class Game extends Application {
 
   public Ball getMyBall() {
     return myBall;
+  }
+
+  public int getMyLevel() {
+    return myLevel;
+  }
+
+  public void setMyLevel(int myLevel) {
+    this.myLevel = myLevel;
   }
 
   /**
