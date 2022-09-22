@@ -1,7 +1,5 @@
 package breakout;
 
-import java.util.ArrayList;
-
 public class PowerBrick extends Brick{
   //useful constants
   // many resources may be in the same shared folder
@@ -15,7 +13,12 @@ public class PowerBrick extends Brick{
   public PowerBrick(int X, int Y, int type) {
     super(X, Y, POWER_BRICK_IMAGE);
     switch (type) {
-      case 2: myPowerUp = new LiveSaverPowerUp(X, Y);
+      case 2: myPowerUp = new LifeSaverPowerUp(X, Y);
+        break;
+      case 3: myPowerUp = new LifeAddPowerUp(X, Y);
+        break;
+      default: myPowerUp = new LifeSaverPowerUp(X, Y);
+        break;
     }
   }
 

@@ -2,8 +2,8 @@ package breakout;
 
 import javafx.scene.paint.Color;
 
-public class LiveSaverPowerUp extends PowerUp{
-  public LiveSaverPowerUp(double X, double Y){
+public class LifeSaverPowerUp extends PowerUp{
+  public LifeSaverPowerUp(double X, double Y){
     super(X, Y, Color.RED);
   }
 

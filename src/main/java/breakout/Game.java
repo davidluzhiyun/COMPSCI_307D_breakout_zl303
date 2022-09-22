@@ -227,6 +227,10 @@ public class Game extends Application {
     return myFieldEdge;
   }
 
+  public LifeCount getMyLifeCount() {
+    return myLifeCount;
+  }
+
   /**
    * Start the program.
    * By Robert C. Duvall

@@ -35,7 +35,7 @@ public class LifeCount {
     Group root = (Group) myNode.getParent();
     if (myLives > 0) {
       root.getChildren().remove(myNode);
-      myNode = textDisplay("Lives: " + myLives,X,Y);
+      myNode = textDisplay("Live(s): " + myLives,X,Y);
       root.getChildren().add(myNode);
       return true;
     }
