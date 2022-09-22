@@ -8,17 +8,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class PowerUp {
+public abstract class PowerUp {
   //useful constants
   public static final int POWER_UP_SIZE = 25;
   public static final int POWER_UP_SPEED = 50;
   //class variables
-  private Node myNode;
-  private boolean active;
+  protected Node myNode;
+  protected boolean active;
 
-  public PowerUp(double X, double Y) {
+  public PowerUp(double X, double Y, Color color) {
     active = false;
-    Rectangle myShape = new Rectangle(POWER_UP_SIZE,POWER_UP_SIZE, Color.RED);
+    Rectangle myShape = new Rectangle(POWER_UP_SIZE,POWER_UP_SIZE, color);
     myShape.setX(X);
     myShape.setY(Y);
     myNode = myShape;
@@ -54,7 +54,7 @@ public class PowerUp {
   /**
    * Auxiliary  method that handles collisions with the Paddle.
    */
-  private void collisionHandler(Game game) {
+  protected void collisionHandler(Game game) {
     ImageView ImageViewPaddle = (ImageView) game.getMyPaddle().getMyNode();
     Bounds paddleBound = ImageViewPaddle.getBoundsInParent();
     boolean collisionStatus = paddleBound.intersects(myNode.getBoundsInParent());
@@ -71,8 +71,6 @@ public class PowerUp {
    *Auxiliary method that creates the power up effect with the Paddle.
    * Override for other types of powerup
    */
-  private void powerup(Game game){
-    game.getMyFieldEdge().powerup();
-  }
+  protected abstract void powerup(Game game);
 
 }

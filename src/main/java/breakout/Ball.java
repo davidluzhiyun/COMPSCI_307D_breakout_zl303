@@ -32,7 +32,6 @@ public class Ball extends BreakoutEntities {
     assert initialVelocity.length == 2;
     myBallVelocity = initialVelocity.clone();
     myInitialVelocity = initialVelocity.clone();
-    System.out.printf("%f",myBallVelocity[0],myBallVelocity[1]);
   }
   public Ball (double centerX, double centerY) {
     this(centerX,centerY,BALL_VELOCITY_INITIAL);

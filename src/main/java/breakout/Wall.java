@@ -43,19 +43,17 @@ public class Wall {
       while (line.hasNextInt()){
         int type = line.nextInt();
         switch (type){
+          case 0:
+            break;
           case 1:
             Brick currentBrick = new Brick(i * Brick.BRICK_X_SIZE,j*Brick.BRICK_Y_SIZE);
             ListWall.add(currentBrick);
             GroupWall.getChildren().add(currentBrick.getMyNode());
             break;
-          case 2:
-            PowerBrick currentPowerBrick = new PowerBrick(i * Brick.BRICK_X_SIZE,j*Brick.BRICK_Y_SIZE);
+          default:
+            PowerBrick currentPowerBrick = new PowerBrick(i * Brick.BRICK_X_SIZE,j*Brick.BRICK_Y_SIZE, type);
             ListWall.add(currentPowerBrick);
             GroupWall.getChildren().add(currentPowerBrick.getMyNode());
-            break;
-          case 0:
-            break;
-          default://Subject to change when there are more types of powerbrick;
             break;
         }
         i += 1;

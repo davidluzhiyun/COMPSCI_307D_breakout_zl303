@@ -12,9 +12,11 @@ public class PowerBrick extends Brick{
   //class variables
   PowerUp myPowerUp;
 
-  public PowerBrick(int X, int Y){
+  public PowerBrick(int X, int Y, int type) {
     super(X, Y, POWER_BRICK_IMAGE);
-    myPowerUp = new PowerUp(X, Y);
+    switch (type) {
+      case 2: myPowerUp = new LiveSaverPowerUp(X, Y);
+    }
   }
 
   /**
