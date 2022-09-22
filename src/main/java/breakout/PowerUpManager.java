@@ -15,7 +15,7 @@ public class PowerUpManager {
   public PowerUpManager(Wall wall){
     myGroup = new Group();
     PowerUplist = new ArrayList<PowerUp>();
-    for (Brick currentBrick:wall.getListWall()){
+    for (AbstractBrick currentBrick:wall.getListWall()){
       currentBrick.buildPowerUp(this);
     }
   }

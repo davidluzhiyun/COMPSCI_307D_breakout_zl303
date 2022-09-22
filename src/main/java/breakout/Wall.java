@@ -13,7 +13,7 @@ public class Wall {
   //class variable
   private Group GroupWall;
   //Inspired by https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html
-  private List<Brick> ListWall;
+  private List<AbstractBrick> ListWall;
 
   /**
    * Construct a wall given columns and rows.
@@ -74,7 +74,7 @@ public class Wall {
   /**
    * Get the Arraylist
    */
-  public List<Brick> getListWall() {
+  public List<AbstractBrick> getListWall() {
     return ListWall;
   }
 
@@ -85,7 +85,7 @@ public class Wall {
    *
    */
   public void collisionHandler(Ball ball,PowerUpManager manager) {
-    for(Brick thisBrick : ListWall) {
+    for(AbstractBrick thisBrick : ListWall) {
       int collisionStatus = ball.collisionDetector(thisBrick);
       double[] ballVelocity = ball.getMyBallVelocity();
       if (collisionStatus == 0) {

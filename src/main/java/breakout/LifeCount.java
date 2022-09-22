@@ -45,7 +45,7 @@ public class LifeCount {
   }
 
   /**
-   * Increase lives for Cheating,utilizes failureHandler
+   * Increase lives for Cheating and powerup,utilizes failureHandler
    */
   public void increaseLife () {
     myLives += 2;

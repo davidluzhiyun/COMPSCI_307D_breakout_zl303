@@ -1,6 +1,6 @@
 package breakout;
 
-public class PowerBrick extends Brick{
+public class PowerBrick extends AbstractBrick{
   //useful constants
   // many resources may be in the same shared folder
   // note, leading slash means automatically start in "src/main/resources" folder
@@ -17,6 +17,7 @@ public class PowerBrick extends Brick{
         break;
       case 3: myPowerUp = new LifeAddPowerUp(X, Y);
         break;
+      case 4: myPowerUp = new BallSpeedReducePowerUp(X, Y);
       default: myPowerUp = new LifeSaverPowerUp(X, Y);
         break;
     }
@@ -35,5 +36,10 @@ public class PowerBrick extends Brick{
   @Override
   public void usePowerUp(PowerUpManager manager) {
     myPowerUp.activate(manager);
+  }
+
+  @Override
+  protected void effect(Game game) {
+    //Do Nothing
   }
 }

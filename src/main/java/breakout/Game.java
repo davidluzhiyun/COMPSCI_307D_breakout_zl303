@@ -231,6 +231,10 @@ public class Game extends Application {
     return myLifeCount;
   }
 
+  public Ball getMyBall() {
+    return myBall;
+  }
+
   /**
    * Start the program.
    * By Robert C. Duvall
