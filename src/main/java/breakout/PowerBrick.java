@@ -18,6 +18,7 @@ public class PowerBrick extends AbstractBrick{
       case 3: myPowerUp = new LifeAddPowerUp(X, Y);
         break;
       case 4: myPowerUp = new BallSpeedReducePowerUp(X, Y);
+        break;
       default: myPowerUp = new LifeSaverPowerUp(X, Y);
         break;
     }

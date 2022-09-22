@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 public class BallSpeedReducePowerUp extends PowerUp {
 
-  public static final double SLOWING_FACTOR = 0.9;
+  public static final double SLOWING_FACTOR = 0.5;
 
   public BallSpeedReducePowerUp(double X, double Y){
     super(X, Y, Color.GRAY);
