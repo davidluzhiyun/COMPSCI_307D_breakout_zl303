@@ -20,10 +20,11 @@ public abstract class AbstractBrick extends BreakoutEntities{
    */
   public AbstractBrick(int X, int Y, String image){
     super(0,0,image, BRICK_Y_SIZE);
-    ImageView ImageViewBrick = (ImageView) getMyNode();
+    ImageView ImageViewBrick = (ImageView) super.getMyNode();
     ImageViewBrick.setX(X);
     ImageViewBrick.setY(Y);
   }
+
 
   /**
    * Powerup related stuff
